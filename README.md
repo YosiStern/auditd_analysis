@@ -6,7 +6,7 @@ There are built-in queries that can be used to check certain changes.
 
 
 ## Requirements:
-- Ubuntu or anther linux OS
+- Ubuntu or anther linux OS (64 bit)
 - Python 3.10.12 or later.
 - Libraries: sqlite3, re, datetime, dotenv, os.
 - Auditd
