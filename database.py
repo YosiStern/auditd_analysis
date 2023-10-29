@@ -130,7 +130,7 @@ def event_in_database(database: sqlite3.Connection, event_id: str) -> bool | Non
 
 
 def update_event_in_database(database: sqlite3.Connection, event_id: str) -> int:
-    return 1
+    return 0
 #  todo write the func
 
 
