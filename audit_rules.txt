@@ -1,0 +1,57 @@
+
+#
+
+
+# 1. File opening, success
+sudo auditctl -a always,exit -F arch=b64 -S open -S openat -F success=1 -k file-open-success
+
+# 2. File opening, failure
+sudo auditctl -a always,exit -F arch=b64 -S open -S openat -F success=0 -k file-open-fail
+
+# 3. Change file success
+sudo auditctl -a always,exit -F arch=b64 -S write -F success=1 -k file-change-success
+
+# 4. Change file failure
+sudo auditctl -a always,exit -F arch=b64 -S write -F success=0 -k file-change-fail
+
+# 5. File deletion success
+sudo auditctl -a always,exit -F arch=b64 -S unlink -S unlinkat -F success=1 -k file-delete-success
+
+# 6. File deletion failure
+sudo auditctl -a always,exit -F arch=b64 -S unlink -S unlinkat -F success=0 -k file-delete-fail
+
+# 7. File creation success
+sudo auditctl -a always,exit -F arch=b64 -S creat -F success=1 -k file-create-success
+
+# 8. File creation failure
+sudo auditctl -a always,exit -F arch=b64 -S creat -F success=0 -k file-create-fail
+
+# 9. Renaming or moving file location success
+sudo auditctl -a always,exit -F arch=b64 -S rename -S renameat -S renameat2 -F success=1 -k file-rename-move-success
+
+# 10. Renaming or moving file location failure
+sudo auditctl -a always,exit -F arch=b64 -S rename -S renameat -S renameat2 -F success=0 -k file-rename-move-fail
+
+# 11. Directory Creation success
+sudo auditctl -a always,exit -F arch=b64 -S mkdir -F success=1 -k dir-create-success
+
+# 12. Directory Creation failure
+sudo auditctl -a always,exit -F arch=b64 -S mkdir -F success=0 -k dir-create-fail
+
+# 13. Directory Deletion success
+sudo auditctl -a always,exit -F arch=b64 -S rmdir -F success=1 -k dir-delete-success
+
+# 14. Directory Deletion failure
+sudo auditctl -a always,exit -F arch=b64 -S rmdir -F success=0 -k dir-delete-fail
+
+# 15. Permission Changes success
+sudo auditctl -a always,exit -F arch=b64 -S chmod -S fchmod -S fchmodat -F success=1 -k perm-change-success
+
+# 16. Permission Changes failure
+sudo auditctl -a always,exit -F arch=b64 -S chmod -S fchmod -S fchmodat -F success=0 -k perm-change-fail
+
+# 17. Ownership Changes success
+sudo auditctl -a always,exit -F arch=b64 -S chown -S fchown -S fchownat -S lchown -F success=1 -k ownership-change-success
+
+# 18. Ownership Changes failure
+sudo auditctl -a always,exit -F arch=b64 -S chown -S fchown -S fchownat -S lchown -F success=0 -k ownership-change-fail
