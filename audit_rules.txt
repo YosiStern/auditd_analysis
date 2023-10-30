@@ -1,7 +1,4 @@
 
-#
-
-
 # 1. File opening, success
 sudo auditctl -a always,exit -F arch=b64 -S open -S openat -F success=1 -k file-open-success
 

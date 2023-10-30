@@ -2,10 +2,17 @@ import sqlite3
 import database
 from dotenv import load_dotenv
 
+# Load environment variables from a .env file
 load_dotenv()
 
 
-def ask_action_from_user() -> int:
+def get_user_action_choice() -> int:
+    """
+    Display a menu of actions to the user and get their choice.
+
+    Returns:
+        int: The user's chosen action as an integer.
+    """
     options = """
 1. The number of different "auditd" rules/commands in the database.
 2. The command that appears most frequently.
@@ -16,17 +23,25 @@ def ask_action_from_user() -> int:
 7. Exit.
 """
     print(options)
-    action = input("Select action: \n")
-    while len(action) > 1 or not "0" < action < "8":
+    user_input = input("Please select an action (1-7): ")
+    while not user_input.isdigit() or int(user_input) not in range(1, 8):
         print(options)
-        print("You must select number from the list!")
-        action = input("Select action: \n")
-        print("action: ", action)
-    action = int(action)
+        print("You must select a number from the list!")
+        user_input = input("Please select an action (1-7): ")
+
+    action = int(user_input)
     return action
 
 
 def execute_action(action: int, db: sqlite3.Connection) -> None:
+    """
+    Execute the action corresponding to the user's choice.
+
+    Args:
+        action (int): The user's chosen action.
+        db (sqlite3.Connection): The database connection object.
+    """
+
     if action == 1:
         print("The number of log rules that created records in the database is: ", database.number_of_rules(db))
     elif action == 2:
@@ -42,6 +57,13 @@ def execute_action(action: int, db: sqlite3.Connection) -> None:
 
 
 def update_database(db: sqlite3.Connection) -> None:
+    """
+    Prompt the user to update the database and perform the update if confirmed.
+
+    Args:
+        db (sqlite3.Connection): The database connection object.
+    """
+
     updating = input("""
 Updating the database blogs created since the last update may take time.
 Would you like to do it now? (y/n)""")
@@ -53,6 +75,9 @@ Would you like to do it now? (y/n)""")
 
 
 def main():
+    """
+    The main function to run the program.
+    """
     db = database.connect_to_database()
     # TODO Write a separate message for each problem. (permissions, memory space, etc.)
     if db is None:
@@ -69,7 +94,7 @@ def main():
     action = ""
 
     while action != 7:
-        action = ask_action_from_user()
+        action = get_user_action_choice()
         execute_action(action, db)
     db.close()
 
